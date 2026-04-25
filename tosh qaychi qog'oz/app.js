@@ -4,44 +4,59 @@ const second_player_img = document.querySelector('.second__player');
 const result = document.querySelector('.result');
 const btn = document.querySelector('.btn');
 
-btn.addEventListener('click', () => {
-    const first_random_number = Math.round(Math.random() * 2)
-    const second_random_number = Math.round(Math.random() * 2)
+result.textContent = 'Siz birinchi o`yinchisiz. Boshlash uchun Start tugmasini bosing!'
+
+// takrorlardan qochish -> funksiyagachiqarish
+
+function getRandomNumbers(limit = 2) {
+    return Math.round(Math.random() * limit)
+}
+
+// o'yinchilar ucun tasudifiy rasm chiqarish
+function setImageAttribute(random_num, img) {
+    if (random_num == 0) {
+        img.setAttribute("src", "./img/paper.png");
+    }else if (random_num == 1) {
+        img.setAttribute("src", "./img/rock.png");
+    }else {
+        img.setAttribute("src", "./img/scissorg.png");
+    }
+}
+
+
+btn.addEventListener("click", () => {
+// tasodifiy sonlarni generatsiya qilish
+const first_random_number = getRandomNumbers();
+const second_random_number = getRandomNumbers();
+
 
     // 1-o'yinchi un rasn chiqarish
-    if (first_random_number == 0) {
-        first_player_img.setAttribute('src', './img/paper.png')
-    } else if (first_random_number == 1) {
-        first_player_img.setAttribute('src', './img/rock.png')
-    } else {
-        first_player_img.setAttribute('src', './img/scissorg.png')
-    }
+ setImageAttribute(first_random_number, first_player_img);
 
     // 2-o'yinchi un rasn chiqarish    
-    if (second_random_number == 0) {
-        second_player_img.setAttribute('src', './img/paper.png');
-    } else if (second_random_number == 1) {
-        second_player_img.setAttribute('src', './img/rock.png');
-    } else {
-        second_player_img.setAttribute('src', './img/scissorg.png');
-    }
+ setImageAttribute(second_random_number, second_player_img);
 
 
     // 0 - paper
     // 1 - rock
     // 2 - scissors
 
-    if (first_random_number == 0 && second_random_number == 1 ) {
-        result.textContent= 'siz yutdingiz!'
-    } else if (first_random_number == 1 && second_random_number == 2) {
-        result.textContent = 'siz yutdingiz!'
-    } else if (first_random_number == 2 && second_random_number == 0) {
-        result.textContent = 'siz yutdingiz!'
-    } else if (first_random_number == second_random_number) {
-        result.textContent = 'Durrang'
-    } else {
-        result.textContent('siz yutdingiz')
-    }
+if(
+    (first_random_number == 0 && second_random_number == 1) ||
+    (first_random_number == 1 && second_random_number == 2) ||
+    (first_random_number == 2 && second_random_number == 0) 
+) {
+     result.textContent= 'siz yutdingiz!'
+     result.style.color = 'green'
+}else if (first_random_number == second_random_number){
+ result.textContent = 'Durrang'
+result.style.color = 'blue'
+} else {
+     result.textContent = 'siz yutqazdingiz!'
+     result.style.color = 'red'
+}
+
 });
+  
 
 
